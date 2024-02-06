@@ -1,17 +1,41 @@
 -- 13 Nom du / des lieu(x) possédant le plus d'habitants, en dehors du village gaulois.
 
 
-SELECT COUNT(p.id_lieu) AS nbHabitant, l.nom_lieu
-FROM personnage p 
-INNER JOIN lieu l ON p.id_lieu = l.id_lieu
-WHERE p.id_lieu = (
-    SELECT id_lieu
+select COUNT(id_lieu) AS nbHabitant, id_lieu
+FROM personnage
+WHERE id_lieu !=1
+GROUP BY id_lieu 
+order by nbHabitant DESC 
+LIMIT 1;
+--renvoie seulement la première ligne
+
+
+-- alternative qui prend en compte les égalités
+SELECT MAX(nbHabitant)
+FROM (
+    SELECT COUNT(id_lieu) AS nbHabitant, id_lieu
+    FROM personnage 
+    WHERE id_lieu != 1
+    GROUP BY id_lieu
+) AS findHab;
+
+-- affiche le nom du lieu
+
+SELECT l.nom_lieu, MAX(nbHabitant) as maxHabitant
+FROM (
+    SELECT COUNT(id_lieu) as nbHabitant, id_lieu
+    FROM personnage
+    WHERE id_lieu != 1
+    GROUP BY id_lieu
+) as perso
+INNER JOIN lieu l ON perso.id_lieu = l.id_lieu
+WHERE nbHabitant = (
+    SELECT MAX(nbHabitant)
     FROM (
-        SELECT id_lieu, COUNT(*) AS nbHabitant
+        SELECT COUNT(id_lieu) as nbHabitant, id_lieu
         FROM personnage
-        ORDER BY nbHabitant DESC -- renvoie la liste par ordre décroissant et ne choisit que la première ligne
-        LIMIT 1 
-    ) AS countHab
+        WHERE id_lieu != 1
+        GROUP BY id_lieu
+    ) as findHab
 )
-AND l.nom_lieu!='Village gaulois'
-GROUP BY p.id_lieu
+GROUP BY l.nom_lieu;
