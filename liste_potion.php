@@ -16,8 +16,16 @@ $potionStatement->execute();
 
 
 // ------------------------------------boucle pour afficher ces infos----------------------------------
-?> <table>
-        <tbody>
+?> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Potions</th>
+      <th scope="col">Nombre d'ingrédients</th>
+    </tr>
+  </thead>
+  <tbody>
+
     <?php
 while($potion = $potionStatement->fetch(PDO::FETCH_ASSOC)){ ?>
         <tr>
@@ -28,7 +36,6 @@ while($potion = $potionStatement->fetch(PDO::FETCH_ASSOC)){ ?>
 ?> 
     </tbody>
  </table>
-
 
 <?php
 

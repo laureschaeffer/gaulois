@@ -26,7 +26,7 @@ if (isset($_GET['action'])) { //si l'utilisateur fait une action
     <div class='potion'>
         <p>Prix total de la potion : <?=$potions[0]['prixPotion'] ?> </p>
         <p>Ingrédients nécessaires : </p>
-    </div>
+        <ul>
 
 <?php
 
@@ -40,11 +40,13 @@ if (isset($_GET['action'])) { //si l'utilisateur fait une action
 
     while ($row = $ingredientStatement->fetch(PDO::FETCH_ASSOC)) {
         ?>
-        <ul>
             <li><?php echo $row['nom_ingredient']; ?></li>
+    <?php }
+?>
         </ul>
-    <?php
-}
+        </div>
+        
+<?php
 
 }
 

@@ -8,19 +8,30 @@ $sqlQuery= "SELECT id_personnage, nom_personnage
 FROM personnage ORDER BY nom_personnage;";
 $gauloisStatement = $mysqlClient->prepare($sqlQuery);
 $gauloisStatement->execute();
-
+$index=1;
 
 // ------------------------------------boucle pour afficher ces infos----------------------------------
-?> <table>
-        <tbody>
+?> 
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Personnages</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php
 while($personnage = $gauloisStatement->fetch(PDO::FETCH_ASSOC)){ ?>
         <tr>
-            <td><a href="personnage.php?action=afficherInfo&id=<?= $personnage["id_personnage"] ?>"><?= $personnage['nom_personnage'] ?></a><br></td>
+            <td><?= $index?> </td>
+            <td><a href="personnage.php?action=afficherInfo&id=<?= $personnage["id_personnage"] ?>"><?= $personnage['nom_personnage'] ?></a></td>
         </tr>
     
-<?php } ?>
-    </tbody>
+<?php 
+$index++ ;
+ } ?>
+
  </table>
 <?php
 
