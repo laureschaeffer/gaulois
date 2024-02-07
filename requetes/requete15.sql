@@ -8,16 +8,3 @@ WHERE id_personnage NOT IN (
     WHERE id_potion=1
 );
 
--- alternative 
-
-SELECT nom_personnage, id_personnage
-FROM personnage
-WHERE id_personnage NOT IN (
-    SELECT id_personnage
-    FROM autoriser_boire
-    WHERE (
-	 select id_potion
-	 FROM potion
-	 WHERE nom_potion = 'Magique')
-); -- ne renvoie pas les bons résultats
-

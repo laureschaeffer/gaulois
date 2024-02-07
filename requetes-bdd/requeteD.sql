@@ -9,4 +9,4 @@ WHERE nom_personnage = 'Zérozérosix';
 -- changer les valeurs
 UPDATE personnage
 SET adresse_personnage ='prison', id_lieu=9
-WHERE nom_personnage = 'Zérozérosix';
+WHERE id_personnage = 23;
